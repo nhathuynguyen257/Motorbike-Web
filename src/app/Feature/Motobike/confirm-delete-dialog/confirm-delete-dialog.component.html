@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Xác nhận xóa</h1>
+<div mat-dialog-content>
+  Bạn có chắc chắn muốn xóa xe này không?
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Không</button>
+  <button mat-button [mat-dialog-close]="true">Có</button>
+</div>

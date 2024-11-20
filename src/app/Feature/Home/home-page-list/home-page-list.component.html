@@ -1,0 +1,158 @@
+<section class="hero-section" style="background-color: #494f61">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-5">
+        <div class="mt-md-4">
+          <div>
+            <span class="badge badge-danger badge-pill">New</span>
+            <span class="text-white-50 ml-1">Welcome to new landing page</span>
+          </div>
+          <h2 class="text-white font-weight-normal mb-4 mt-3 hero-title">
+            Responsive Web UI Kit &amp; Dashboard Template
+          </h2>
+
+          <p class="mb-4 font-16 text-white-50">
+            Hyper is a fully featured dashboard and admin template comes with
+            tones of well designed UI elements, components, widgets and pages.
+          </p>
+
+          <a href="" target="_blank" class="btn btn-success"
+            >Preview <i class="mdi mdi-arrow-right ml-1"></i
+          ></a>
+        </div>
+      </div>
+      <div class="col-md-5 offset-md-2">
+        <div class="text-md-right mt-3 mt-md-0">
+          <img
+            src="../../../assets/lib/images/startup.svg"
+            alt=""
+            class="img-fluid"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="row py-4">
+  <div class="col-lg-12">
+    <div class="text-center">
+      <h1 class="mt-0"><i class="mdi mdi-motorbike"></i></h1>
+      <h1>RENTAL MOTORBIKES</h1>
+    </div>
+  </div>
+</div>
+<section class="py-5">
+  <div class="container" id="ctn">
+    <div class="row">
+      <div class="col-lg-8">
+        <form class="form-inline" (submit)="searchAndFilterMotorbikes()">
+          <div class="form-group mb-2 mr-1">
+            <label for="input-search" class="sr-only">Search</label>
+            <input
+              type="search"
+              class="form-control"
+              id="inputPassword2"
+              placeholder="Search..."
+              [(ngModel)]="keyword"
+              (ngModelChange)="onSearchInputChange()"
+              name="searchName"
+            />
+          </div>
+          <!-- <button type="submit" class="btn btn-primary">
+              <i class="fas fa-search"></i> Seach
+          </button> -->
+          <div class="form-group mx-sm-1 mb-2">
+            <label for="type-select" class="mr-2">Type</label>
+            <select
+              class="custom-select"
+              id="type-select"
+              [(ngModel)]="selectedType"
+              name="type"
+              (change)="searchAndFilterMotorbikes()"
+            >
+              <option value="">All</option>
+              <option value="1">Xe số</option>
+              <option value="2">Xe tay ga</option>
+              <option value="3">Xe tay côn</option>
+            </select>
+          </div>
+          <div class="form-group mx-sm-1 mb-2">
+            <label for="status-select" class="mr-2">Status</label>
+            <select
+              class="custom-select"
+              id="status-select"
+              [(ngModel)]="selectedStatus"
+              name="status"
+              (change)="searchAndFilterMotorbikes()"
+            >
+              <option value="">All</option>
+              <option value="1">Enable</option>
+              <option value="2">Busy</option>
+              <option value="3">Maintain</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div
+        class="col-lg-4"
+        *ngFor="
+          let motorbike of filteredMotorbikes
+            | paginate
+              : { itemsPerPage: itemsPerPage, currentPage: currentPage };
+          let i = index
+        "
+      >
+        <div class="text-center p-3 border rounded custom-card mt-4">
+          <div class="m-auto custom-avatar">
+            <img
+              [src]="
+                motorbike.motorbikeAvatar || 'https://via.placeholder.com/150'
+              "
+              alt="{{ motorbike.name }}"
+              class="rounded custom-img"
+            />
+          </div>
+          <h4 class="mt-3">{{ motorbike.name }}</h4>
+          <div class="d-flex justify-content-around mt-2">
+            <p class="text-muted mb-0">
+              Day: {{ motorbike.priceDay | currency }}
+            </p>
+            <p class="text-muted mb-0">
+              Week: {{ motorbike.priceWeek | currency }}
+            </p>
+            <p class="text-muted mb-0">
+              Month: {{ motorbike.priceMonth | currency }}
+            </p>
+          </div>
+          <p class="text-muted mt-2 mb-0">
+            Loại xe: {{ getFormattedType(motorbike.type) }}
+          </p>
+          <div class="mt-3">
+            <button
+              class="btn btn-primary mr-2"
+              (click)="viewDetail(motorbike.id)"
+            >
+              <i class="fas fa-eye"></i> Xem chi tiết
+            </button>
+            <button
+              class="btn btn-success"
+              [disabled]="motorbike.status !== 1"
+              (click)="motorBikeRental(motorbike.id)"
+            >
+              <i class="fas fa-shopping-cart"></i> Thuê xe
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+      <pagination-controls
+        (pageChange)="currentPage = $event"
+      ></pagination-controls>
+    </div>
+  </div>
+</section>

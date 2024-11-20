@@ -1,0 +1,91 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <form (ngSubmit)="addMotorbike()">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" [(ngModel)]="motorbike.Name" name="name" required />
+          </div>
+          <div>
+            <label for="motorbike">Type</label>
+            <select style="width: 31%;" name="motorbike" id="motorbike" class="form-control" [(ngModel)]="motorbike.Type">
+              <option value="1">Xe số</option>
+              <option value="2">Xe tay ga</option>
+              <option value="3">Xe tay côn</option>
+            </select>
+          </div>
+          <div class="d-flex">
+            <div class="mr-2">
+              <label for="speed">Speed</label>
+              <input type="text" id="speed" class="form-control" [(ngModel)]="motorbike.Speed" name="speed" />
+            </div>
+            <div class="mr-2">
+              <label for="capacity">Capacity</label>
+              <input type="text" id="capacity" class="form-control" [(ngModel)]="motorbike.Capacity" name="capacity" />
+            </div>
+            <div>
+              <label for="color">Color</label>
+              <input type="text" id="color" class="form-control" [(ngModel)]="motorbike.Color" name="color" required />
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="mr-2">
+              <label for="year">Year of Manufacture</label>
+              <input type="text" id="year" class="form-control" [(ngModel)]="motorbike.YearOfManufacture" name="year" />
+            </div>
+            <div>
+              <label for="made-in">Made in</label>
+              <input type="text" id="made-in" class="form-control" [(ngModel)]="motorbike.MadeIn" name="made-in" />
+            </div>
+          </div>
+          <div>
+            <label for="description">Description</label>
+            <angular-editor [(ngModel)]="motorbike.Description" name="description" [placeholder]="'Enter description here...'"></angular-editor>
+          </div>
+          <div class="d-flex">
+            <div class="mr-2">
+              <label for="price-day">Price Day</label>
+              <input type="text" id="price-day" class="form-control" [(ngModel)]="motorbike.PriceDay" name="price-day" required />
+            </div>
+            <div class="mr-2">
+              <label for="price-week">Price Week</label>
+              <input type="text" id="price-week" class="form-control" [(ngModel)]="motorbike.PriceWeek" name="price-week" required />
+            </div>
+            <div>
+              <label for="price-month">Price Month</label>
+              <input type="text" id="price-month" class="form-control" [(ngModel)]="motorbike.PriceMonth" name="price-month" required />
+            </div>
+          </div>
+          <div>
+            <label for="licence-plate">License Plate</label>
+            <input type="text" id="licence-plate" class="form-control" [(ngModel)]="motorbike.LicensePlate" name="licence-plate" required />
+          </div>
+          <div>
+            <label for="company">Company</label>
+            <div style="width: 31%;">
+              <select name="company" id="company" class="js-example-tags form-control" [(ngModel)]="motorbike.CompanyName">
+                <option *ngFor="let company of companies" [value]="company.name">{{ company.name }}</option>
+              </select>
+            </div>
+            
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Add Motorbike</button>
+        </form>
+      </div>
+  
+      <div class="col-lg-4">
+        <div class="form-group mt-3">
+          <label for="imageUpload">Upload Image</label>
+          <input type="file" class="form-control-file" id="imageUpload" (change)="onFileChange($event)" accept="image/*">
+        </div>
+        <div class="image-preview mt-3 p-2 border rounded" *ngIf="!imageUrl">
+          <p class="text-center text-muted">No image uploaded</p>
+        </div>
+        <div class="image-preview mt-3 p-2 border rounded" *ngIf="imageUrl">
+          <img [src]="imageUrl" alt="Uploaded Image" class="img-fluid">
+        </div>
+            
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,119 @@
+<div *ngIf="motorbike" class="container mt-4">
+  <div class="row">
+    <!-- Thông tin xe máy -->
+    <div class="col-lg-6">
+      <div class=" mb-">
+        <img [src]="motorbike.motorbikeAvatar" class="img-fluid rounded" style="width: 470px; height: 350px;"/>
+      </div>
+      <h3 class="mt-0">{{ motorbike.name }}</h3>
+      <p class="mb-2">
+        <strong>Year of Manufacture:</strong> {{ motorbike.yearOfManufacture }}
+      </p>
+      <div class="d-flex">
+        <div class="mb-3 mr-2 d-flex">
+          <span class="badge badge-success large-badge">{{ getMotorbikeType(motorbike.type) }}</span>
+        </div>
+        <div class="mb-3 d-flex">
+          <span
+            [ngClass]="{
+              'badge-primary': motorbike.status == 1,
+              'badge-danger': motorbike.status == 2,
+              'badge-warning': motorbike.status == 3
+            }"
+            class="badge large-badge"
+            >{{ getMotorbikeStatus(motorbike.status) }}</span
+          >
+        </div>
+      </div>
+      <div class="d-flex mt-n2" style="width: 100%">
+        <div class="d-flex mr-1">
+          <h4 class="mr-1" style="font-size: 14.4px">Daily Price:</h4>
+          <h3 style="font-size: 14.4px">{{ motorbike.priceDay | currency }} |</h3>
+        </div>
+        <div class="d-flex mr-1">
+          <h4 class="mr-1" style="font-size: 14.4px">Weekly Price:</h4>
+          <h3 style="font-size: 14.4px">{{ motorbike.priceWeek | currency }} |</h3>
+        </div>
+        <div class="d-flex">
+          <h4 class="mr-1" style="font-size: 14.4px">Monthly Price:</h4>
+          <h3 style="font-size: 14.4px">{{ motorbike.priceMonth | currency }}</h3>
+        </div>
+      </div>
+      <div class="mb-3">
+        <h5>Description:</h5>
+        <p>{{ motorbike.description || "No description available." }}</p>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <div class="d-flex">
+            <h6 class="font-14 mb-0 mr-n1">Type:</h6>
+            <p class="text-sm lh-150 ml-2 mt-1">{{ getMotorbikeType(motorbike.type) }}</p>
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="d-flex">
+            <h6 class="font-14 mb-0 mr-n1">Speed:</h6>
+            <p class="text-sm lh-150 ml-2 mt-1">{{ motorbike.speed }} km/h</p>
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="d-flex">
+            <h6 class="font-14 mb-0 mr-n1">Capacity:</h6>
+            <p class="text-sm lh-150 ml-2 mt-1">{{ motorbike.capacity }} cc</p>
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="d-flex">
+            <h6 class="font-14 mb-0 mr-n1">Color:</h6>
+            <p class="text-sm lh-150 ml-2 mt-1">{{ motorbike.color }}</p>
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="d-flex">
+            <h6 class="font-14 mb-0 mr-n1">Made In:</h6>
+            <p class="text-sm lh-150 ml-2 mt-1">{{ motorbike.madeIn }}</p>
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="d-flex">
+            <h6 class="font-14 mb-0 mr-n1">License Plate:</h6>
+            <p class="text-sm lh-150 ml-2 mt-1">{{ motorbike.licensePlate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Biểu mẫu thuê xe -->
+    <div class="col-lg-6">
+      <h1 style="margin-left: 78px;">Thuê xe: {{ motorbike.name }}</h1>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-6">
+              <label for="rentalBegin">Ngày bắt đầu thuê:</label>
+              <input type="datetime-local" id="rentalBegin" name="rentalBegin" [(ngModel)]="rentalBegin" class="form-control" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="rentalEnd">Ngày kết thúc thuê:</label>
+              <input type="datetime-local" id="rentalEnd" name="rentalEnd" [(ngModel)]="rentalEnd" (ngModelChange)="updateTotalRentalPrice()" class="form-control" required>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="locationReceive">Địa điểm nhận xe:</label>
+          <input type="text" id="locationReceive" name="locationReceive" [(ngModel)]="locationReceive" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="totalPrice">Tổng tiền thuê:</label>
+          <input type="text" id="totalPrice" [value]="totalRentalPrice | currency" class="form-control" readonly>
+        </div>
+        <button type="submit" class="btn btn-warning">Thuê xe</button>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+
+<div *ngIf="!motorbike" class="d-flex justify-content-center mt-4">
+  <div class="progress-circular"></div>
+</div>

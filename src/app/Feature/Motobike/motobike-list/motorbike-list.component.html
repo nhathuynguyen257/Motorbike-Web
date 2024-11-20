@@ -1,0 +1,208 @@
+<!-- end page title -->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-lg-8">
+            <form class="form-inline">
+              <div class="form-group mb-2 mr-1">
+                <label for="input-search" class="sr-only">Search</label>
+                <input
+                  type="search"
+                  class="form-control"
+                  id="inputPassword2"
+                  placeholder="Search..."
+                  [(ngModel)]="keyword"
+                  (ngModelChange)="onSearchInputChange()"
+                  name="searchName"
+                />
+              </div>
+
+              <div class="form-group mx-sm-3 mb-2">
+                <label for="status-select" class="mr-2">Status</label>
+                <select
+                  class="custom-select"
+                  id="status-select"
+                  [(ngModel)]="selectedStatus"
+                  name="status"
+                  (change)="searchAndFilterMotorbikes()"
+                >
+                  <option value="">All</option>
+                  <option value="1">Enable</option>
+                  <option value="2">Busy</option>
+                  <option value="3">Maintain</option>
+                </select>
+              </div>
+              <div class="form-group mx-sm-1 mb-2">
+                <label for="type-select" class="mr-2">Type</label>
+                <select
+                  class="custom-select"
+                  id="type-select"
+                  [(ngModel)]="selectedType"
+                  name="type"
+                  (change)="searchAndFilterMotorbikes()"
+                >
+                  <option value="">All</option>
+                  <option value="1">Xe số</option>
+                  <option value="2">Xe tay ga</option>
+                  <option value="3">Xe tay côn</option>
+                </select>
+              </div>
+              <button
+                type="button"
+                class="mb-2 ml-2 btn btn-primary"
+                (click)="clearSearchAndFilter()"
+              >
+                Clear
+              </button>
+            </form>
+          </div>
+          <div class="col-lg-4">
+            <div class="text-lg-right">
+              <button [routerLink]="['/owner/motorbike/add']" type="button" class="btn btn-danger mb-2 mr-2">
+                <i class="mdi mdi-basket mr-1"></i> Add New Order
+              </button>
+              <button
+                type="button"
+                class="btn btn-light mb-2"
+                (click)="getAllMotorbikesForExport()"
+              >
+                Export
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table
+            id="motorbikeTable"
+            class="table table-striped table-centered mb-0"
+          >
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th (click)="sortBy('name')">
+                  Name
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-arrows-vertical"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8.354 14.854a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 13.293V2.707L6.354 3.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 2.707v10.586l1.146-1.147a.5.5 0 0 1 .708.708z"
+                    />
+                  </svg>
+                </th>
+                <th>Type</th>
+                <th>Color</th>
+                <th>Status</th>
+                <th style="width: 100px" (click)="sortBy('priceDay')">
+                  Price
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-arrows-vertical"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8.354 14.854a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 13.293V2.707L6.354 3.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 2.707v10.586l1.146-1.147a.5.5 0 0 1 .708.708z"
+                    />
+                  </svg>
+                </th>
+                <th>MotorbikeAvatar</th>
+                <th style="width: 125px">License Plate</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let motor of motorbikes | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
+                <td>{{ motor.id }}</td>
+                <td>{{ motor.name }}</td>
+                <td>{{ getMotorbikeType(motor.type) }}</td>
+                <td>{{ motor.color }}</td>
+                <td>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <span
+                      style="font-size: 14px; border-radius: 8px"
+                      class="px-1"
+                      [ngClass]="{
+                        'badge badge-primary-lighten ': motor.status === 1,
+                        'badge badge-danger-lighten ': motor.status === 2,
+                        'badge badge-warning-lighten ': motor.status === 3
+                      }"
+                    >
+                      {{ getMotorbikeStatus(motor.status) }}
+                    </span>
+                  </div>
+                </td>
+                <td style="color: green">{{ motor.priceDay }}$</td>
+                <td>
+                  <div
+                    style="cursor: pointer"
+                    class="d-flex justify-content-center"
+                  >
+                    <img
+                      [src]="motor.motorbikeAvatar"
+                      [style.width.px]="50"
+                      class="zoomable-image"
+                    />
+                  </div>
+                </td>
+
+                <td>{{ motor.licensePlate }}</td>
+                <td>
+                  <div
+                    class="d-flex justify-content-center align-items-center"
+                    style="cursor: pointer"
+                  >
+                    <div (click)="confirmDelete(motor.id)" class="mr-2" style="color: red">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="currentColor"
+                        class="bi bi-trash3"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      [routerLink]="['/owner/motorbike/detail', motor.id]"
+                      style="color: blue"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-pen"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+          <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

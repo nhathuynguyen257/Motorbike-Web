@@ -1,0 +1,99 @@
+<section class="py-5" >
+    <div class="container">
+
+<div *ngIf="motorbike" class="container mt-4">
+    <div class="avatar-section">
+        <img [src]="motorbike.motorbikeAvatar" class="img-fluid rounded" style="width: 90%; max-height: 600px; object-fit: cover;"/>
+    </div>
+    <div class="motorbike-info">
+        <h3 class="text-center">{{ motorbike.name }}</h3>
+        <p class="text-center mb-2" style="font-size: 18px;">
+            <strong>Year of Manufacture:</strong> {{ motorbike.yearOfManufacture }}
+        </p>
+        <div class="d-flex justify-content-center mb-3">
+            <div class="mr-2">
+                <span class="badge badge-success large-badge" style="font-size: 18px;">{{ getMotorbikeType(motorbike.type) }}</span>
+            </div>
+            <div>
+                <span [ngClass]="{
+                    'badge-primary': motorbike.status == 1,
+                    'badge-danger': motorbike.status == 2,
+                    'badge-warning': motorbike.status == 3
+                }" class="badge large-badge" style="font-size: 18px;">{{ getMotorbikeStatus(motorbike.status) }}</span>
+            </div>
+        </div>
+        <div class="d-flex" style="flex-wrap: wrap;">
+            <div class="d-flex mr-4">
+                <h4 class="mr-1" style="font-size: 18px">Daily Price:</h4>
+                <h3 style="font-size: 18px">{{ motorbike.priceDay | currency }}</h3>
+            </div>
+            <div class="d-flex mr-4">
+                <h4 class="mr-1" style="font-size: 18px">Weekly Price:</h4>
+                <h3 style="font-size: 18px">{{ motorbike.priceWeek | currency }}</h3>
+            </div>
+            <div class="d-flex">
+                <h4 class="mr-1" style="font-size: 18px">Monthly Price:</h4>
+                <h3 style="font-size: 18px">{{ motorbike.priceMonth | currency }}</h3>
+            </div>
+        </div>
+        <div class="d-flex" style="flex-wrap: wrap;">
+            <div class="d-flex mr-2">
+                <h4 class="mr-1" style="font-size: 18px">Description:</h4>
+                <h3 style="font-size: 18px">{{ motorbike.description || "No description available." }}</h3>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-2">
+                <div class="d-flex">
+                    <h6 class="font-16 mb-0 mr-1">Type:</h6>
+                    <h3 style="font-size: 18px" class="text-lg lh-150">{{ getMotorbikeType(motorbike.type) }}</h3>
+                </div>
+            </div>
+            <div class="col-md-6 mb-2">
+                <div class="d-flex">
+                    <h6 class="font-16 mb-0 mr-1">Speed:</h6>
+                    <h3 style="font-size: 18px" class="text-lg lh-150">{{ motorbike.speed }} km/h</h3>
+                </div>
+            </div>
+            <div class="col-md-6 mb-2 mt-n1">
+                <div class="d-flex">
+                    <h6 class="font-16 mb-0 mr-1">Capacity:</h6>
+                    <h3 style="font-size: 18px" class="text-lg lh-150">{{ motorbike.capacity }} cc</h3>
+                </div>
+            </div>
+            <div class="col-md-6 mb-2 mt-n1">
+                <div class="d-flex">
+                    <h6 class="font-16 mb-0 mr-1">Color:</h6>
+                    <h3 style="font-size: 18px" class="text-lg lh-150">{{ motorbike.color }}</h3>
+                </div>
+            </div>
+            <div class="col-md-6 mb-2 mt-n1">
+                <div class="d-flex">
+                    <h6 class="font-16 mb-0 mr-1">Made In:</h6>
+                    <h3 style="font-size: 18px" class="text-lg lh-150">{{ motorbike.madeIn }}</h3>
+                </div>
+            </div>
+            <div class="col-md-6 mb-2 mt-n1">
+                <div class="d-flex">
+                    <h6 class="font-16 mb-0 mr-1">License Plate:</h6>
+                    <h3 style="font-size: 18px" class="text-lg lh-150">{{ motorbike.licensePlate }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <!-- <button class="btn btn-primary mr-2" (click)="goToHomePage()">
+                <i class="fas fa-home"></i> Quay lại trang chủ
+            </button> -->
+            <div class="text-center mt-4">
+                <button class="btn btn-success" [disabled]="motorbike.status !== 1" (click)="motorBikeRental(motorbike.id)">
+                    <i class="fas fa-shopping-cart"></i> Thuê xe
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!motorbike" class="d-flex justify-content-center mt-4">
+    <div class="progress-circular"></div>
+</div>
+</div>
+</section>

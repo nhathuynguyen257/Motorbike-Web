@@ -1,0 +1,55 @@
+.rental-period {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .rental-time {
+    display: flex;
+    width: 100%;
+    
+  }
+  
+  .rental-time span {
+    white-space: nowrap;
+  }
+  
+  .custom-table th,
+  .custom-table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .custom-table .rental-period .rental-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .margin-action {
+    margin-top: 30px;
+    cursor: pointer;
+  }
+  
+  .action {
+    padding-right: 4px;
+    padding-left: 4px;
+    border-radius: 10%;
+  }
+  
+  .action:hover {
+    background-color: silver;
+  }
+  
+  .action:active {
+    background-color: gray;
+  }
+  button:disabled,
+button.disabled-btn {
+  background-color: gray;
+  border-color: gray
+}
+  

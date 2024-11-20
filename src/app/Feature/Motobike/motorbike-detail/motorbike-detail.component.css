@@ -1,0 +1,39 @@
+.large-badge {
+  font-size: 0.8rem;
+  padding: 0.5em 1em;
+}
+.badge-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.badge-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.badge-warning {
+  background-color: #ffc107;
+  color: white;
+}
+.progress-circular {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #1976d2; 
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+
+  
+

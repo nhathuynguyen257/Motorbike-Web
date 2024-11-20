@@ -1,0 +1,7 @@
+<input type="date" [(ngModel)]="from" name="from" />
+<span>to</span>
+<input type="date" [(ngModel)]="to" name="to"/>
+<button id="calculate" (click)="toggle()">Calculate</button>
+<ag-charts-angular
+    [options]="chartOptions"
+  ></ag-charts-angular>

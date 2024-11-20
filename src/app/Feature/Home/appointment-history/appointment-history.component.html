@@ -1,0 +1,170 @@
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table
+                class="table table-striped table-centered mb-0 custom-table"
+              >
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Motorbike Name</th>
+                    <th>Owner Name</th>
+                    <th>Rental Period</th>
+                    <th>Rental Return</th>
+                    <th>Location Receive</th>
+                    <th>Status Appointment</th>
+                    <th>Status Payment</th>
+                    <th>Rental Price</th>
+                    <th>Surcharges</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let appoint of appointments
+                        | paginate
+                          : { itemsPerPage: itemsPerPage, currentPage: currentPage }
+                    "
+                  >
+                    <td>{{ appoint.Id }}</td>
+                    <td>
+                      <a
+                        href="#"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="{{ appoint.Motorbike.licensePlate }}"
+                      >
+                        {{ appoint.Motorbike.name }}
+                      </a>
+                    </td>
+                    <td>
+                      <a
+                        href="#"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="{{ appoint.Owner.phoneNumber }}"
+                      >
+                        {{ appoint.Owner.name }}
+                      </a>
+                    </td>
+                    <td>
+                      <div class="rental-time">
+                        <span class="date">{{
+                          appoint.RentalBegin | date : "longDate"
+                        }}</span>
+                        <span class="time">{{
+                          appoint.RentalBegin | date : "HH:mm"
+                        }}</span>
+                      </div>
+                      -
+                      <div class="rental-time">
+                        <span class="date">{{
+                          appoint.RentalEnd | date : "longDate"
+                        }}</span>
+                        <span class="time">{{
+                          appoint.RentalEnd | date : "HH:mm"
+                        }}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <span
+                        *ngIf="appoint.RentalReturn === '0001-01-01T00:00:00'"
+                        style="font-size: 14px; border-radius: 8px"
+                        class="badge badge-primary-lighten"
+                      >
+                        Chưa trả xe
+                      </span>
+                      <span
+                        *ngIf="appoint.RentalReturn !== '0001-01-01T00:00:00'"
+                      >
+                        {{ appoint.RentalReturn | date : "longDate" }}
+                        {{ appoint.RentalReturn | date : "HH:mm" }}
+                      </span>
+                    </td>
+                    <td>{{ appoint.LocationReceive }}</td>
+                    <td>
+                      <div
+                        class="d-flex justify-content-center align-items-center"
+                      >
+                        <span
+                          style="font-size: 14px; border-radius: 8px"
+                          class="px-1"
+                          [ngClass]="{
+                            'badge badge-primary-lighten':
+                              appoint.StatusAppointment === 0,
+                            'badge badge-danger-lighten':
+                              appoint.StatusAppointment === 1,
+                            'badge badge-info-lighten':
+                              appoint.StatusAppointment === 2,
+                            'badge badge-success-lighten':
+                              appoint.StatusAppointment === 3
+                          }"
+                        >
+                          {{ getAppointmentStatus(appoint.StatusAppointment) }}
+                        </span>
+                      </div>
+                    </td>
+                    <td>
+                      <div
+                        class="d-flex justify-content-center align-items-center"
+                      >
+                        <span
+                          style="font-size: 14px; border-radius: 8px"
+                          class="px-1"
+                          [ngClass]="{
+                            'badge badge-danger-lighten':
+                              appoint.StatusPayment === 0,
+                            'badge badge-success-lighten':
+                              appoint.StatusPayment === 1
+                          }"
+                        >
+                          {{ getPaymentStatus(appoint.StatusPayment) }}
+                        </span>
+                      </div>
+                    </td>
+                    <td>{{ appoint.RentalPrice | currency }}</td>
+                    <td>
+                      <ul>
+                        <li *ngFor="let surcharge of appoint.Surcharge">
+                          {{ surcharge.amount | currency }}
+                        </li>
+                      </ul>
+                    </td>
+                    <td>{{ appoint.Total | currency }}</td>
+                    <td>
+                      <div
+                        *ngIf="appoint.StatusAppointment === 3 && appoint.StatusPayment == 0"
+                        class="action"
+                      >
+                        <button
+                          class="btn btn-warning btn-sm"
+                          (click)="makePayment(appoint)"
+                        >
+                          Make Pay
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+              <pagination-controls
+                (pageChange)="currentPage = $event"
+              ></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noHistory>
+      <p>No appointment history found.</p>
+    </ng-template>
+  </div>
+</section>

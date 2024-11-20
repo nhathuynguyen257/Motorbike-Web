@@ -1,0 +1,12 @@
+.rental-time {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .rental-time .date {
+    margin-right: 5px;
+  }
+  
+  .rental-time .time {
+    margin-left: 5px;
+  }

@@ -1,0 +1,46 @@
+.zoomable-image {
+  transition: transform 0.2s ease-in-out;
+}
+
+.zoomable-image:hover {
+  transform: scale(5);
+  z-index: 10;
+  position: relative;
+}
+
+.progress-circular {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #1976d2; 
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+button:disabled,
+button.disabled-btn {
+  background-color: gray;
+  border-color: gray
+}
+
+.sort-icon {
+  cursor: pointer;
+  margin-left: 5px;
+}
+.sort-asc::after {
+  content: '▲';
+  margin-left: 5px;
+}
+.sort-desc::after {
+  content: '▼';
+  margin-left: 5px;
+}

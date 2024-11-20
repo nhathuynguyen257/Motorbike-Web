@@ -1,0 +1,72 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <title>Orders | Hyper - Responsive Bootstrap 4 Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
+  <meta content="Coderthemes" name="author">
+  <!-- App favicon -->
+
+</head>
+
+<body class="" data-layout="topnav" data-layout-config="{&quot;layoutBoxed&quot;:false,&quot;darkMode&quot;:false,&quot;showRightSidebarOnStart&quot;: true}">
+  <!-- Begin page -->
+  <div class="wrapper">
+
+      <!-- ============================================================== -->
+      <!-- Start Page Content here -->
+      <!-- ============================================================== -->
+
+      <div class="content-page">
+          <div class="content">
+              <!-- Topbar Start -->
+              <app-header></app-header>
+              <!-- end Topbar -->
+
+             <app-dashboards></app-dashboards>
+
+
+              <!-- Start Content-->
+              <div class="container-fluid">
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="page-title-box mb-n1 mt-3">
+                      <div class="page-title-right"></div>
+
+                      <app-breadcrumb></app-breadcrumb>
+                    </div>
+                  </div>
+                </div>
+
+                  <!-- start page title -->
+                  <!-- end row -->
+                <router-outlet></router-outlet>
+              </div>
+              <!-- container -->
+
+          </div>
+          <!-- content -->
+
+          <!-- Footer Start -->
+          <app-footer></app-footer>
+          <!-- end Footer -->
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- End Page content -->
+      <!-- ============================================================== -->
+  </div>
+  <!-- END wrapper -->
+
+  <!-- Right Sidebar -->
+
+
+
+  <!-- /Right-bar -->
+
+  <!-- bundle -->
+
+
+
+</body></html>

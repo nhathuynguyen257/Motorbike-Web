@@ -1,0 +1,61 @@
+<nav
+  style="background-color: #494f61"
+  class="navbar navbar-expand-lg py-lg-3 navbar-dark"
+>
+  <div class="container">
+    <!-- logo -->
+    <a href="index.html" class="navbar-brand mr-lg-5">
+      <img
+        src="../../../../assets/lib/images/logo.png"
+        alt=""
+        class="logo-dark"
+        height="18"
+      />
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="mdi mdi-menu"></i>
+    </button>
+
+    <!-- menus -->
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <!-- left menu -->
+      <ul class="navbar-nav mr-auto align-items-center">
+        <!-- <li class="nav-item mx-lg-1">
+          <a class="nav-link active" href="">Home</a>
+        </li> -->
+      </ul>
+
+      <!-- right menu -->
+      <ul class="navbar-nav ml-auto align-items-center">
+        <ng-container *ngIf="user === undefined;else showLogout">
+          <li class="nav-item mr-0">
+            <a class="nav-link" routerLink="/login">Sign In</a>
+          </li>
+          <li class="nav-item mr-0">
+            <a class="nav-link" routerLink="/register">Sign Up</a>
+          </li>
+        </ng-container>
+        <ng-template #showLogout>
+          <li class="nav-item mr-0">
+            <a class="nav-link" routerLink="/appointment-history">Appointment History</a>
+          </li> 
+          <li class="nav-item mr-0">
+            <h5 class="card-title mb-0 mr-2"> | {{user?.email}}</h5>
+          </li>
+          <li class="nav-item mr-0">
+            <a class="nav-link" (click)="onLogout()">Log out</a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>
